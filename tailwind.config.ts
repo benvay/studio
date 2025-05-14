@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -59,7 +60,23 @@ export default {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+        gryffindor: {
+          primary: 'hsl(var(--gryffindor-primary))',
+          secondary: 'hsl(var(--gryffindor-secondary))',
+        },
+        slytherin: {
+          primary: 'hsl(var(--slytherin-primary))',
+          secondary: 'hsl(var(--slytherin-secondary))',
+        },
+        ravenclaw: {
+          primary: 'hsl(var(--ravenclaw-primary))',
+          secondary: 'hsl(var(--ravenclaw-secondary))',
+        },
+        hufflepuff: {
+          primary: 'hsl(var(--hufflepuff-primary))',
+          secondary: 'hsl(var(--hufflepuff-secondary))',
+        },
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
