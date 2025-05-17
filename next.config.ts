@@ -46,6 +46,12 @@ const nextConfig: NextConfig = {
         hostname: 'preview.redd.it',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.pngkey.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
