@@ -104,7 +104,7 @@ export default function SortingHatPage() {
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ 
         backgroundImage: "url('https://preview.redd.it/random-scenes-from-inside-of-hogwarts-castle-to-show-off-v0-0emhk3lovf5c1.jpg?width=1080&crop=smart&auto=webp&s=f0ec14944f8fd495de139407685575e91785f469')", 
-        backgroundSize: 'cover', 
+        backgroundSize: 'contain', 
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
