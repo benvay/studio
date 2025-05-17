@@ -103,7 +103,7 @@ export default function SortingHatPage() {
     <main 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ 
-        backgroundImage: "url('https://c4.wallpaperflare.com/wallpaper/848/1010/356/movies-harry-potter-hogwarts-wallpaper-preview.jpg')", // Updated image URL
+        backgroundImage: "url('https://virtualoffice.ninja/wp-content/uploads/Harry-Potter-Hogwarts-Castle-Great-Hall-background-for-zoom-1024x576.jpeg')", 
         backgroundSize: 'contain', 
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

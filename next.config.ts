@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'c4.wallpaperflare.com', // Added for peakpx links
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'virtualoffice.ninja',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
