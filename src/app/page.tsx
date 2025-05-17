@@ -41,7 +41,6 @@ export default function SortingHatPage() {
       console.error("Error generating question:", e);
       setError('The Sorting Hat is gathering its thoughts... please try again in a moment.');
       toast({ variant: "destructive", title: "Error", description: "Failed to generate a question." });
-      // Potentially reset or offer a retry
     } finally {
       setIsLoading(false);
     }
@@ -60,22 +59,26 @@ export default function SortingHatPage() {
     setCurrentQuestionIndex(0);
     setSortedHouse(null);
     setError(null);
-    // Initial question fetch is handled by useEffect
+    // Initial question fetch is handled by useEffect if questions are empty
   };
 
   const handleSubmitAnswer = async (answer: string) => {
-    setAnswers(prev => [...prev, answer]);
+    const newAnswers = [...answers, answer];
+    setAnswers(newAnswers);
     const nextQuestionIndex = currentQuestionIndex + 1;
 
     if (nextQuestionIndex < MAX_QUESTIONS) {
       setCurrentQuestionIndex(nextQuestionIndex);
-      await fetchQuestion();
+      // Fetch next question only if we are moving to a new question index and not already loading
+      if (questions.length === nextQuestionIndex) { // only fetch if this is a new question
+         await fetchQuestion();
+      }
     } else {
       setPhase('sorting');
       setIsLoading(true);
       setError(null);
       try {
-        const analysisInput: AnalyzeAnswersInput = { answers: [...answers, answer] }; // include current answer
+        const analysisInput: AnalyzeAnswersInput = { answers: newAnswers };
         const result = await analyzeAnswers(analysisInput);
         setSortedHouse(result);
         setPhase('result');
@@ -83,7 +86,7 @@ export default function SortingHatPage() {
         console.error("Error analyzing answers:", e);
         setError('The Sorting Hat encountered a magical mishap... please try sorting again.');
         toast({ variant: "destructive", title: "Error", description: "Failed to analyze answers." });
-        setPhase('quiz'); // Go back to quiz or welcome
+        setPhase('quiz'); 
       } finally {
         setIsLoading(false);
       }
@@ -98,29 +101,34 @@ export default function SortingHatPage() {
 
   return (
     <main 
-      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 bg-[url('https://placehold.co/1920x1080.png')] bg-cover bg-center selection:bg-primary/30 selection:text-primary-foreground"
-      data-ai-hint="enchanted castle"
+      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 bg-cover bg-center selection:bg-primary/30 selection:text-primary-foreground"
+      style={{ backgroundImage: "url('https://placehold.co/1920x1080.png')" }}
+      data-ai-hint="great hall candles"
     >
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-xs"></div> {/* Optional: Adds a slight dark overlay to make text more readable */}
-      <Card className="relative z-10 w-full max-w-3xl bg-card/90 shadow-2xl border-2 border-border/70 backdrop-blur-sm">
-        <CardContent className="p-0">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div> {/* Dark overlay for readability */}
+      <Card className="relative z-10 w-full max-w-3xl bg-card/85 shadow-2xl border-2 border-border/70 backdrop-blur-md">
+        <CardContent className="p-0 flex items-center justify-center min-h-[450px] md:min-h-[500px]">
           {phase === 'welcome' && <WelcomeStep onStart={handleStartQuiz} />}
-          {phase === 'quiz' && questions.length > 0 && currentQuestionIndex < questions.length && (
-            <QuizStep
+          
+          {phase === 'quiz' && (questions.length > 0 || isLoading) && currentQuestionIndex < MAX_QUESTIONS && (
+             <QuizStep
               question={currentQuestionText}
               questionNumber={currentQuestionIndex + 1}
               totalQuestions={MAX_QUESTIONS}
               onSubmitAnswer={handleSubmitAnswer}
-              isLoadingNextQuestion={isLoading && currentQuestionIndex < MAX_QUESTIONS -1}
+              isLoadingNextQuestion={isLoading && currentQuestionIndex < MAX_QUESTIONS -1 && questions.length <= currentQuestionIndex + 1}
             />
           )}
-          {phase === 'quiz' && isLoading && currentQuestionIndex === questions.length && questions.length < MAX_QUESTIONS && (
+
+          {phase === 'quiz' && isLoading && currentQuestionIndex === questions.length && questions.length < MAX_QUESTIONS && questions.length === 0 && (
             <div className="min-h-[400px] flex flex-col items-center justify-center p-8">
                 <SortingStep /> 
-                <p className="mt-4 text-lg">Preparing the next incantation...</p>
+                <p className="mt-4 text-lg">Preparing the first incantation...</p>
             </div>
           )}
+
           {phase === 'sorting' && <SortingStep />}
+          
           {phase === 'result' && sortedHouse && (
             <ResultStep
               houseName={sortedHouse.house as HouseName}
@@ -128,6 +136,7 @@ export default function SortingHatPage() {
               onSortAgain={handleSortAgain}
             />
           )}
+          
           {error && (
             <div className="text-center p-8 text-destructive">
               <h2 className="text-2xl font-bold mb-2">Oh dear!</h2>
