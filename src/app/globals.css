@@ -18,7 +18,7 @@ body {
     --popover: 40 45% 88%;
     --popover-foreground: 30 30% 25%;
 
-    --primary: 45 70% 40%; /* Darker Antique Gold - buttons, main interactive */
+    --primary: 45 70% 25%; /* Super Dark Antique Gold - buttons, main interactive */
     --primary-foreground: 30 30% 90%; /* Lighter text on darker gold */
 
     --secondary: 40 30% 85%; /* Lighter parchment / muted element */
@@ -63,7 +63,7 @@ body {
     --card-foreground: 210 20% 98%; /* White/light text on dark card */
     --popover: 224 71% 4%;
     --popover-foreground: 210 20% 98%;
-    --primary: 45 70% 40%; /* Darker Antique Gold */
+    --primary: 45 70% 25%; /* Super Dark Antique Gold */
     --primary-foreground: 30 30% 90%; /* Lighter text for darker gold */
     --secondary: 215 28% 17%;
     --secondary-foreground: 210 20% 98%;
@@ -109,3 +109,4 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.8s ease-out forwards;
 }
+
