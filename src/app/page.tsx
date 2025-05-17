@@ -102,8 +102,7 @@ export default function SortingHatPage() {
   return (
     <main 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 bg-cover bg-center selection:bg-primary/30 selection:text-primary-foreground"
-      style={{ backgroundImage: "url('https://placehold.co/1920x1080.png')" }}
-      data-ai-hint="great hall candles"
+      style={{ backgroundImage: "url('https://static.wikia.nocookie.net/harrypotter/images/c/c6/B1-background.jpg/revision/latest?cb=20111017204834')" }}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div> {/* Dark overlay for readability */}
       <Card className="relative z-10 w-full max-w-3xl bg-card/85 shadow-2xl border-2 border-border/70 backdrop-blur-md">
