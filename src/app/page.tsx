@@ -103,11 +103,12 @@ export default function SortingHatPage() {
     <main 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ 
-        backgroundImage: "url('https://wallpapers.com/images/high/the-hogwarts-great-hall-1600-x-900-wallpaper-bg8sid3o7rnicrl6.webp')",
-        backgroundSize: 'contain', // Changed from 'cover' to 'contain'
+        backgroundImage: "url('https://c4.wallpaperflare.com/wallpaper/848/1010/356/movies-harry-potter-hogwarts-wallpaper-preview.jpg')", // Updated image URL
+        backgroundSize: 'contain', 
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
+      data-ai-hint="great hall candles"
     >
       <Card className="relative z-10 w-full max-w-3xl bg-card/85 shadow-2xl border-2 border-border/70 backdrop-blur-md">
         <CardContent className="p-0 flex items-center justify-center min-h-[450px] md:min-h-[500px]">

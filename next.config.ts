@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
         hostname: 'wallpapers.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'c4.wallpaperflare.com', // Added for peakpx links
+        port: '',
+        pathname: '/**',
       }
     ],
   },
