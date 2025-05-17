@@ -104,7 +104,7 @@ export default function SortingHatPage() {
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ 
         backgroundImage: "url('https://wallpapers.com/images/high/the-hogwarts-great-hall-1600-x-900-wallpaper-bg8sid3o7rnicrl6.webp')",
-        backgroundSize: 'cover',
+        backgroundSize: 'contain', // Changed from 'cover' to 'contain'
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
