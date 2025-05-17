@@ -6,7 +6,7 @@ import { generateQuestion, type GenerateQuestionInput, type GenerateQuestionOutp
 import { analyzeAnswers, type AnalyzeAnswersInput, type AnalyzeAnswersOutput } from '@/ai/flows/analyze-answers';
 import { MAX_QUESTIONS, HOUSE_TRAITS_FOR_AI, type HouseName } from '@/lib/constants';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button'; // Added import
+import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
 import WelcomeStep from '@/components/sorting-hat/WelcomeStep';
@@ -97,8 +97,12 @@ export default function SortingHatPage() {
   const currentQuestionText = questions[currentQuestionIndex] || (isLoading && currentQuestionIndex < MAX_QUESTIONS ? "Conjuring next question..." : "");
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 bg-background selection:bg-primary/30 selection:text-primary-foreground">
-      <Card className="w-full max-w-3xl bg-card/90 shadow-2xl border-2 border-border/70 backdrop-blur-sm">
+    <main 
+      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 bg-[url('https://placehold.co/1920x1080.png')] bg-cover bg-center selection:bg-primary/30 selection:text-primary-foreground"
+      data-ai-hint="enchanted castle"
+    >
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-xs"></div> {/* Optional: Adds a slight dark overlay to make text more readable */}
+      <Card className="relative z-10 w-full max-w-3xl bg-card/90 shadow-2xl border-2 border-border/70 backdrop-blur-sm">
         <CardContent className="p-0">
           {phase === 'welcome' && <WelcomeStep onStart={handleStartQuiz} />}
           {phase === 'quiz' && questions.length > 0 && currentQuestionIndex < questions.length && (
