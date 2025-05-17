@@ -110,8 +110,8 @@ export default function SortingHatPage() {
       }}
       data-ai-hint="Hogwarts interior"
     >
-      <Card className="relative z-10 w-full max-w-3xl bg-card/85 shadow-2xl border-2 border-border/70 backdrop-blur-md">
-        <CardContent className="p-0 flex items-center justify-center min-h-[400px] md:min-h-[450px]">
+      <Card className="relative z-10 w-full max-w-3xl bg-card/75 shadow-2xl border-2 border-border/70 backdrop-blur-md">
+        <CardContent className="p-0 flex items-center justify-center min-h-[320px] md:min-h-[380px]">
           {phase === 'welcome' && <WelcomeStep onStart={handleStartQuiz} />}
           
           {phase === 'quiz' && (questions.length > 0 || isLoading) && currentQuestionIndex < MAX_QUESTIONS && (
@@ -125,7 +125,7 @@ export default function SortingHatPage() {
           )}
 
           {phase === 'quiz' && isLoading && currentQuestionIndex === questions.length && questions.length < MAX_QUESTIONS && questions.length === 0 && (
-            <div className="min-h-[400px] flex flex-col items-center justify-center p-8">
+            <div className="min-h-[320px] md:min-h-[380px] flex flex-col items-center justify-center p-8">
                 <SortingStep /> 
                 <p className="mt-4 text-lg">Preparing the first incantation...</p>
             </div>
