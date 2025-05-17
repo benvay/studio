@@ -1,7 +1,6 @@
 
 import type { FC } from 'react';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
 
 interface WelcomeStepProps {
   onStart: () => void;
@@ -20,7 +19,6 @@ const WelcomeStep: FC<WelcomeStepProps> = ({ onStart }) => {
         </p>
       </div>
       <Button size="lg" onClick={onStart} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <Wand2 className="mr-2 h-6 w-6" />
         Begin the Sorting
       </Button>
     </div>
