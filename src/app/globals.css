@@ -10,7 +10,7 @@ body {
 @layer base {
   :root {
     --background: 40 50% 92%; /* Parchment */
-    --foreground: 30 30% 25%; /* Dark Brown */
+    --foreground: 0 0% 8%; /* Very Dark Brown / Near Black for general text */
 
     --card: 30 20% 25%; /* Darker Brown for cards */
     --card-foreground: 0 0% 5%; /* Near Black for card text */

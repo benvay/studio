@@ -110,7 +110,7 @@ export default function SortingHatPage() {
       }}
       data-ai-hint="Hogwarts interior"
     >
-      <Card className="relative z-10 w-full max-w-3xl bg-card/75 shadow-2xl border-2 border-border/70 backdrop-blur-md">
+      <Card className="relative z-10 w-full max-w-3xl bg-card/60 shadow-2xl border-2 border-border/70 backdrop-blur-md">
         <CardContent className="p-0 flex items-center justify-center min-h-[320px] md:min-h-[380px]">
           {phase === 'welcome' && <WelcomeStep onStart={handleStartQuiz} />}
           
@@ -153,3 +153,4 @@ export default function SortingHatPage() {
     </main>
   );
 }
+

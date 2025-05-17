@@ -1,3 +1,4 @@
+
 import type { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { HOUSES, type HouseName } from '@/lib/constants';
@@ -33,7 +34,7 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, onSortAgain }) 
       
       <div className="bg-card/80 p-6 rounded-lg shadow-md border border-border">
         <h3 className="text-2xl font-cinzel font-semibold mb-3">The Sorting Hat's Wisdom:</h3>
-        <p className="text-foreground/90 italic">"{reasoning}"</p>
+        <p className="text-card-foreground/90 italic">"{reasoning}"</p>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">

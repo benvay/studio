@@ -1,3 +1,4 @@
+
 import type { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Wand2 } from 'lucide-react';
@@ -10,7 +11,7 @@ const WelcomeStep: FC<WelcomeStepProps> = ({ onStart }) => {
   return (
     <div className="text-center p-8 animate-fadeIn">
       <h1 className="text-5xl font-bold mb-6 animate-float">The Hogwarts Sorting Ceremony</h1>
-      <div className="mb-8 text-xl text-foreground/80">
+      <div className="mb-8 text-xl text-card-foreground/90">
         <p>
           Step forth and let the Sorting Hat discover where you truly belong.
         </p>
