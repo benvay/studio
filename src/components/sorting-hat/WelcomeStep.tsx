@@ -12,7 +12,7 @@ const WelcomeStep: FC<WelcomeStepProps> = ({ onStart }) => {
       <h1 className="text-5xl font-bold mb-6 animate-float">The Hogwarts Sorting Ceremony</h1>
       <div className="mb-8 text-xl text-foreground/80">
         <p>
-          Step forth, brave student, and let the Sorting Hat discover where you truly belong.
+          Step forth and let the Sorting Hat discover where you truly belong.
         </p>
         <p className="mt-2">
           Answer truthfully, for the Hat sees all.
