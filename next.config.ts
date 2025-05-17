@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'virtualoffice.ninja',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'preview.redd.it',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
