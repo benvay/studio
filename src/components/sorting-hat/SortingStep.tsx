@@ -13,7 +13,7 @@ const SortingStep: FC = () => {
         height={96}
         className="mb-6 animate-bounce"
         data-ai-hint="sorting hat"
-        priority // Good to add for LCP elements if this is visible quickly
+        priority 
       />
       <h2 className="text-4xl font-bold mb-4 font-cinzel">The Sorting Hat Ponders...</h2>
       <p className="text-xl text-foreground/80 mb-6">
