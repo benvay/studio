@@ -103,7 +103,7 @@ export default function SortingHatPage() {
     <main 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ 
-        backgroundImage: "url('https://static.wikia.nocookie.net/harrypotter/images/c/c6/B1-background.jpg/revision/latest?cb=20111017204834')",
+        backgroundImage: "url('https://wallpapers.com/images/high/the-hogwarts-great-hall-1600-x-900-wallpaper-bg8sid3o7rnicrl6.webp')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
