@@ -133,10 +133,6 @@ export default function SortingHatPage() {
           )}
         </CardContent>
       </Card>
-      <footer className="mt-8 text-center text-sm text-foreground/60">
-        <p>&copy; {new Date().getFullYear()} Hogwarts School of Witchcraft and Wizardry. Unauthorized use of magic is strictly prohibited.</p>
-        <p>Powered by Arcane AI & Next.js</p>
-      </footer>
     </main>
   );
 }
