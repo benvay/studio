@@ -46,7 +46,7 @@ const QuizStep: FC<QuizStepProps> = ({
         <Label htmlFor="answer" className="text-2xl font-cinzel mb-4 block text-center">
           Question {questionNumber} of {totalQuestions}
         </Label>
-        <p className="text-lg text-center mb-6 min-h-[6em] flex items-center justify-center">"{question}"</p>
+        <p className="text-xl font-semibold text-center mb-6 min-h-[6em] flex items-center justify-center">"{question}"</p>
         <Progress value={progressValue} className="w-full h-3 mb-2" />
       </div>
       
