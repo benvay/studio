@@ -1,3 +1,4 @@
+
 'use client';
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
@@ -34,15 +35,21 @@ const ShareButton: FC<ShareButtonProps> = ({ houseName }) => {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!", description: "Your magical destiny is now known to others." });
       } else {
+        // Fallback if navigator.share doesn't exist
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
         toast({ title: "Link Copied!", description: "Share your house with the world (or just your owl post)." });
       }
-    } catch (err) {
-      console.error('Error sharing:', err);
+    } catch (shareErr) {
+      // navigator.share existed but failed (e.g., permission denied) or initial clipboard attempt failed
       try {
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        toast({ title: "Link Copied!", description: "Sharing failed, but the link is on your clipboard." });
+        // If clipboard fallback succeeds, toast a specific message.
+        // We avoid console.error for shareErr here if clipboard works, to reduce console noise.
+        toast({ title: "Link Copied!", description: "Sharing via native share failed, but the link is on your clipboard." });
       } catch (copyErr) {
+        // Both Web Share API (if attempted) and clipboard failed.
+        console.error('Error sharing via Web Share API (if attempted):', shareErr);
+        console.error('Error copying to clipboard after share attempt failed:', copyErr);
         toast({ variant: "destructive", title: "Sharing Failed", description: "Could not share or copy the link." });
       }
     }
