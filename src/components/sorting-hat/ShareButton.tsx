@@ -35,19 +35,29 @@ const ShareButton: FC<ShareButtonProps> = ({ houseName }) => {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!", description: "Your magical destiny is now known to others." });
       } else {
-        // Fallback if navigator.share doesn't exist
+        // Fallback if navigator.share doesn't exist (e.g., desktop browser without native share)
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
         toast({ title: "Link Copied!", description: "Share your house with the world (or just your owl post)." });
       }
     } catch (shareErr) {
-      // navigator.share existed but failed (e.g., permission denied) or initial clipboard attempt failed
+      // This catch block is entered if:
+      // 1. navigator.share exists but fails (e.g., permission denied, user cancellation).
+      // 2. navigator.share does not exist, AND the clipboard.writeText in the 'else' block fails.
+
+      // Attempt clipboard fallback specifically if navigator.share was the part that failed.
+      // We can infer this because if navigator.share didn't exist, the error would likely
+      // be from the clipboard.writeText in the 'else' block above, or this catch block wouldn't be hit
+      // in the first place for the shareErr itself.
+      // A more explicit way could be to check if `shareErr` is a "AbortError" or "NotAllowedError"
+      // but for simplicity, we'll try clipboard again.
+
       try {
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        // If clipboard fallback succeeds, toast a specific message.
+        // If clipboard fallback succeeds after a share attempt failed, toast a specific message.
         // We avoid console.error for shareErr here if clipboard works, to reduce console noise.
         toast({ title: "Link Copied!", description: "Sharing via native share failed, but the link is on your clipboard." });
       } catch (copyErr) {
-        // Both Web Share API (if attempted) and clipboard failed.
+        // Both Web Share API (if it was attempted and failed) and clipboard fallback failed.
         console.error('Error sharing via Web Share API (if attempted):', shareErr);
         console.error('Error copying to clipboard after share attempt failed:', copyErr);
         toast({ variant: "destructive", title: "Sharing Failed", description: "Could not share or copy the link." });
