@@ -3,7 +3,7 @@
 
 /**
  * @fileOverview Dynamically generates personality questions for the Hogwarts House Sorting Hat.
- *
+ * HI PROFESSOR TRENK 
  * - generateQuestion - A function that generates a question relevant to the sorting process.
  * - GenerateQuestionInput - The input type for the generateQuestion function.
  * - GenerateQuestionOutput - The return type for the generateQuestion function (a single question string).
