@@ -49,9 +49,15 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.pngkey.com', // Ensure this is exactly 'www.pngkey.com'
+        hostname: 'www.pngkey.com', 
         port: '',
-        pathname: '/**', // Allows any path from this hostname
+        pathname: '/**', 
+      },
+      {
+        protocol: 'https',
+        hostname: 'gimgs2.nohat.cc', 
+        port: '',
+        pathname: '/**',
       }
     ],
   },

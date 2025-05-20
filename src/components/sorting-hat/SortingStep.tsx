@@ -7,13 +7,13 @@ const SortingStep: FC = () => {
   return (
     <div className="text-center p-8 flex flex-col items-center justify-center animate-fadeIn">
       <Image
-        src="https://www.pngkey.com/png/full/34-349067_harry-potter-sorting-hat-png-sorting-hat-harry.png"
+        src="https://gimgs2.nohat.cc/thumb/f/640/computer-icons-sorting-hat-harry-potter-ron-weasley-harry-potter--comdlpng6968665.jpg"
         alt="Sorting Hat"
         width={96}
         height={96}
         className="mb-6 animate-bounce"
         data-ai-hint="sorting hat"
-        priority 
+        priority
       />
       <h2 className="text-4xl font-bold mb-4 font-cinzel">The Sorting Hat Ponders...</h2>
       <p className="text-xl text-foreground/80 mb-6">
