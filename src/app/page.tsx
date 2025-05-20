@@ -4,6 +4,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { generateQuestion, type GenerateQuestionInput, type GenerateQuestionOutput } from '@/ai/flows/generate-questions';
 import { analyzeAnswers, type AnalyzeAnswersInput, type AnalyzeAnswersOutput } from '@/ai/flows/analyze-answers';
+import { generateWelcomeMessage, type GenerateWelcomeMessageInput, type GenerateWelcomeMessageOutput } from '@/ai/flows/generate-welcome-message';
 import { MAX_QUESTIONS, HOUSE_TRAITS_FOR_AI, type HouseName } from '@/lib/constants';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,9 @@ export default function SortingHatPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [sortedHouse, setSortedHouse] = useState<AnalyzeAnswersOutput | null>(null);
+  const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingWelcome, setIsLoadingWelcome] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
@@ -58,6 +61,7 @@ export default function SortingHatPage() {
     setAnswers([]);
     setCurrentQuestionIndex(0);
     setSortedHouse(null);
+    setWelcomeMessage(null);
     setError(null);
     // Initial question fetch is handled by useEffect if questions are empty
   };
@@ -81,6 +85,24 @@ export default function SortingHatPage() {
         const analysisInput: AnalyzeAnswersInput = { answers: newAnswers };
         const result = await analyzeAnswers(analysisInput);
         setSortedHouse(result);
+        
+        // Fetch welcome message
+        setIsLoadingWelcome(true);
+        try {
+            const welcomeInput: GenerateWelcomeMessageInput = {
+                houseName: result.house as HouseName,
+                studentName: "student" // You could potentially ask for a name earlier
+            };
+            const welcomeResult = await generateWelcomeMessage(welcomeInput);
+            setWelcomeMessage(welcomeResult.welcomeMessage);
+        } catch (welcomeError) {
+            console.error("Error generating welcome message:", welcomeError);
+            // Non-critical error, so we don't set the main error state
+            toast({ variant: "default", title: "Notice", description: "Could not fetch a welcome from your Head of House at this time." });
+        } finally {
+            setIsLoadingWelcome(false);
+        }
+
         setPhase('result');
       } catch (e) {
         console.error("Error analyzing answers:", e);
@@ -137,6 +159,8 @@ export default function SortingHatPage() {
             <ResultStep
               houseName={sortedHouse.house as HouseName}
               reasoning={sortedHouse.reasoning}
+              welcomeMessage={welcomeMessage}
+              isLoadingWelcome={isLoadingWelcome}
               onSortAgain={handleSortAgain}
             />
           )}
@@ -153,4 +177,3 @@ export default function SortingHatPage() {
     </main>
   );
 }
-

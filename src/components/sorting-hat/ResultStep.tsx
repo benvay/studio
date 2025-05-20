@@ -4,15 +4,17 @@ import { Button } from '@/components/ui/button';
 import { HOUSES, type HouseName } from '@/lib/constants';
 import HouseDisplay from './HouseDisplay';
 import ShareButton from './ShareButton';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Loader2 } from 'lucide-react';
 
 interface ResultStepProps {
   houseName: HouseName;
   reasoning: string;
+  welcomeMessage: string | null;
+  isLoadingWelcome: boolean;
   onSortAgain: () => void;
 }
 
-const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, onSortAgain }) => {
+const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, welcomeMessage, isLoadingWelcome, onSortAgain }) => {
   const houseDetails = HOUSES[houseName];
 
   if (!houseDetails) {
@@ -29,7 +31,7 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, onSortAgain }) 
   }
 
   return (
-    <div className="text-center p-4 md:p-8 w-full max-w-2xl animate-fadeIn space-y-8">
+    <div className="text-center p-4 md:p-8 w-full max-w-2xl animate-fadeIn space-y-6">
       <HouseDisplay house={houseDetails} />
       
       <div className="bg-card/80 p-6 rounded-lg shadow-md border border-border">
@@ -37,7 +39,24 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, onSortAgain }) 
         <p className="text-card-foreground/90 italic">"{reasoning}"</p>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
+      {isLoadingWelcome && (
+        <div className="bg-card/80 p-6 rounded-lg shadow-md border border-border">
+          <h3 className="text-2xl font-cinzel font-semibold mb-3">A Word from Your Head of House...</h3>
+          <div className="flex items-center justify-center text-card-foreground/90">
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            Awaiting their owl...
+          </div>
+        </div>
+      )}
+
+      {!isLoadingWelcome && welcomeMessage && (
+         <div className="bg-card/80 p-6 rounded-lg shadow-md border border-border">
+          <h3 className="text-2xl font-cinzel font-semibold mb-3">A Word from Your Head of House:</h3>
+          <p className="text-card-foreground/90 italic">"{welcomeMessage}"</p>
+        </div>
+      )}
+
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
         <ShareButton houseName={houseName} />
         <Button onClick={onSortAgain} size="lg" variant="default" className="shadow-lg hover:shadow-xl transition-shadow">
           <RefreshCw className="mr-2 h-5 w-5" />
