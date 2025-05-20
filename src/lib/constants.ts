@@ -8,8 +8,8 @@ export interface HouseDetails {
     backgroundClass: string;
     borderClass: string;
   };
-  crestImage: string; 
-  crestHint: string; 
+  crestImage: string;
+  crestHint: string;
   description: string;
   traits: string;
 }
@@ -73,4 +73,3 @@ export const HOUSES: Record<HouseName, HouseDetails> = {
 };
 
 export const MAX_QUESTIONS = 3;
-
