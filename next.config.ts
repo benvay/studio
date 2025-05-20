@@ -49,9 +49,9 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.pngkey.com',
+        hostname: 'www.pngkey.com', // Ensure this is exactly 'www.pngkey.com'
         port: '',
-        pathname: '/**',
+        pathname: '/**', // Allows any path from this hostname
       }
     ],
   },
