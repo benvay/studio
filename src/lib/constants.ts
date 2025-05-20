@@ -73,3 +73,4 @@ export const HOUSES: Record<HouseName, HouseDetails> = {
 };
 
 export const MAX_QUESTIONS = 3;
+
