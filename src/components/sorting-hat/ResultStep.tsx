@@ -3,7 +3,6 @@ import type { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { HOUSES, type HouseName } from '@/lib/constants';
 import HouseDisplay from './HouseDisplay';
-import ShareButton from './ShareButton';
 import { RefreshCw, Loader2 } from 'lucide-react';
 
 interface ResultStepProps {
@@ -57,7 +56,6 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, welcomeMessage,
       )}
 
       <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
-        <ShareButton houseName={houseName} />
         <Button onClick={onSortAgain} size="lg" variant="default" className="shadow-lg hover:shadow-xl transition-shadow">
           <RefreshCw className="mr-2 h-5 w-5" />
           Sort Another Student
