@@ -61,7 +61,7 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, welcomeMessage,
           <RefreshCw className="mr-2 h-5 w-5" />
           Sort Another Student
         </Button>
-        <Button asChild size="lg" variant="outline" className="shadow-lg hover:shadow-xl transition-shadow">
+        <Button asChild size="lg" variant="default" className="shadow-lg hover:shadow-xl transition-shadow">
           <Link href="/all-results">
             <ScrollText className="mr-2 h-5 w-5" />
             View All Sortings
