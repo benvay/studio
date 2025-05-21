@@ -1,9 +1,10 @@
 
 import type { FC } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { HOUSES, type HouseName } from '@/lib/constants';
 import HouseDisplay from './HouseDisplay';
-import { RefreshCw, Loader2 } from 'lucide-react';
+import { RefreshCw, Loader2, ScrollText } from 'lucide-react';
 
 interface ResultStepProps {
   houseName: HouseName;
@@ -59,6 +60,12 @@ const ResultStep: FC<ResultStepProps> = ({ houseName, reasoning, welcomeMessage,
         <Button onClick={onSortAgain} size="lg" variant="default" className="shadow-lg hover:shadow-xl transition-shadow">
           <RefreshCw className="mr-2 h-5 w-5" />
           Sort Another Student
+        </Button>
+        <Button asChild size="lg" variant="outline" className="shadow-lg hover:shadow-xl transition-shadow">
+          <Link href="/all-results">
+            <ScrollText className="mr-2 h-5 w-5" />
+            View All Sortings
+          </Link>
         </Button>
       </div>
     </div>

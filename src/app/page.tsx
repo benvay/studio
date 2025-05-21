@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { generateQuestion, type GenerateQuestionInput, type GenerateQuestionOutput } from '@/ai/flows/generate-questions';
-import { analyzeAnswers, type AnalyzeAnswersInput, type AnalyzeAnswersOutput } from '@/ai/flows/analyze-answers';
+// analyzeAnswers is now called by the backend API
 import { generateWelcomeMessage, type GenerateWelcomeMessageInput, type GenerateWelcomeMessageOutput } from '@/ai/flows/generate-welcome-message';
 import { MAX_QUESTIONS, HOUSE_TRAITS_FOR_AI, type HouseName } from '@/lib/constants';
 import { Card, CardContent } from '@/components/ui/card';
@@ -17,12 +17,17 @@ import ResultStep from '@/components/sorting-hat/ResultStep';
 
 type QuizPhase = 'welcome' | 'quiz' | 'sorting' | 'result';
 
+interface SortedHouseData {
+  house: HouseName;
+  reasoning: string;
+}
+
 export default function SortingHatPage() {
   const [phase, setPhase] = useState<QuizPhase>('welcome');
   const [questions, setQuestions] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [sortedHouse, setSortedHouse] = useState<AnalyzeAnswersOutput | null>(null);
+  const [sortedHouse, setSortedHouse] = useState<SortedHouseData | null>(null);
   const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingWelcome, setIsLoadingWelcome] = useState(false);
@@ -63,7 +68,7 @@ export default function SortingHatPage() {
     setSortedHouse(null);
     setWelcomeMessage(null);
     setError(null);
-    // Initial question fetch is handled by useEffect if questions are empty
+    // Initial question fetch is handled by useEffect
   };
 
   const handleSubmitAnswer = async (answer: string) => {
@@ -73,8 +78,7 @@ export default function SortingHatPage() {
 
     if (nextQuestionIndex < MAX_QUESTIONS) {
       setCurrentQuestionIndex(nextQuestionIndex);
-      // Fetch next question only if we are moving to a new question index and not already loading
-      if (questions.length === nextQuestionIndex) { // only fetch if this is a new question
+      if (questions.length === nextQuestionIndex) {
          await fetchQuestion();
       }
     } else {
@@ -82,22 +86,30 @@ export default function SortingHatPage() {
       setIsLoading(true);
       setError(null);
       try {
-        const analysisInput: AnalyzeAnswersInput = { answers: newAnswers };
-        const result = await analyzeAnswers(analysisInput);
+        const response = await fetch('/api/sorting-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answers: newAnswers }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to get sorting result from API.');
+        }
+        
+        const result: SortedHouseData = await response.json();
         setSortedHouse(result);
         
-        // Fetch welcome message
         setIsLoadingWelcome(true);
         try {
             const welcomeInput: GenerateWelcomeMessageInput = {
-                houseName: result.house as HouseName,
-                studentName: "student" // You could potentially ask for a name earlier
+                houseName: result.house,
+                studentName: "student" 
             };
             const welcomeResult = await generateWelcomeMessage(welcomeInput);
             setWelcomeMessage(welcomeResult.welcomeMessage);
         } catch (welcomeError) {
             console.error("Error generating welcome message:", welcomeError);
-            // Non-critical error, so we don't set the main error state
             toast({ variant: "default", title: "Notice", description: "Could not fetch a welcome from your Head of House at this time." });
         } finally {
             setIsLoadingWelcome(false);
@@ -105,9 +117,10 @@ export default function SortingHatPage() {
 
         setPhase('result');
       } catch (e) {
-        console.error("Error analyzing answers:", e);
-        setError('The Sorting Hat encountered a magical mishap... please try sorting again.');
-        toast({ variant: "destructive", title: "Error", description: "Failed to analyze answers." });
+        console.error("Error during sorting submission:", e);
+        const errorMessage = e instanceof Error ? e.message : 'The Sorting Hat encountered a magical mishap... please try sorting again.';
+        setError(errorMessage);
+        toast({ variant: "destructive", title: "Error", description: "Failed to process your answers." });
         setPhase('quiz'); 
       } finally {
         setIsLoading(false);
@@ -157,7 +170,7 @@ export default function SortingHatPage() {
           
           {phase === 'result' && sortedHouse && (
             <ResultStep
-              houseName={sortedHouse.house as HouseName}
+              houseName={sortedHouse.house}
               reasoning={sortedHouse.reasoning}
               welcomeMessage={welcomeMessage}
               isLoadingWelcome={isLoadingWelcome}
