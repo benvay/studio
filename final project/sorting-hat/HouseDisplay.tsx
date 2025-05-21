@@ -11,7 +11,7 @@ const HouseDisplay: FC<HouseDisplayProps> = ({ house }) => {
   const crestPlaceholderColorClass = house.colors.backgroundClass;
 
   return (
-    <Card className={`w-full shadow-xl border-2 ${house.colors.borderClass} bg-background transition-all duration-500 ease-in-out transform hover:scale-105`}>
+    <Card className={`w-full shadow-xl border-2 ${house.colors.borderClass} bg-card/80 transition-all duration-500 ease-in-out transform hover:scale-105`}>
       <CardHeader className="items-center text-center pt-6 pb-4">
         <div
           className={`w-24 h-24 md:w-28 md:h-28 mb-4 rounded-md ${crestPlaceholderColorClass} border-2 ${house.colors.borderClass} shadow-inner flex items-center justify-center text-5xl font-bold ${house.colors.textClass} opacity-90`}

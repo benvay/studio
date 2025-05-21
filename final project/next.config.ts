@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  pagesDir: './src',
   eslint: {
     ignoreDuringBuilds: true,
   },
